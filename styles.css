@@ -1,0 +1,61 @@
+@font-face {
+    font-family: 'Berthold City';
+    src: local('Berthold City');
+    font-weight: normal;
+    font-style: normal;
+}
+
+span.stretch {
+    display: inline-block;
+    -webkit-transform: scale(2, 1);
+    /* Safari and Chrome */
+    -moz-transform: scale(2, 1);
+    /* Firefox */
+    -ms-transform: scale(2, 1);
+    /* IE 9 */
+    -o-transform: scale(2, 1);
+    /* Opera */
+    transform: scale(2, 1);
+    /* W3C */
+    text-decoration: underline;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000;
+    color: #207D64;
+    font-family: 'Berthold City', monospace;
+    font-size: larger;
+    text-align: center;
+}
+
+.terminal {
+    width: 80%;
+    max-width: 1000px;
+    background-color: #000;
+    padding: 20px;
+    border: 2px solid #207D64;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+}
+
+.screen {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #207D64;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.input-line {
+    display: flex;
+}
+
+.typed-char {
+    color: #D6DE46;
+}
