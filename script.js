@@ -24,6 +24,8 @@ document.getElementById("new-employee-button").addEventListener("click", functio
 
     addPsychProfile(charClass)
 
+    generateSkills(charClass)
+
     function addClassName(charClass) {
         field = document.getElementById("className")
         typeText(charClass["name"], field, MEDIUM)
@@ -61,6 +63,37 @@ document.getElementById("new-employee-button").addEventListener("click", functio
         psychProfile.appendChild(fearResponse);
 
         typeText(charClass["fear"], fearResponse, FAST)
+    }
+
+    function generateSkills(charClass) {
+        var skillsList = document.getElementById("skills");
+
+        skillsList.innerHTML = "";
+
+        // generate first skills
+        var coreSkillsList = charClass["coreSkills"]
+
+        for (skill in coreSkillsList) {
+            var skillField = document.createElement("li");
+            skillsList.appendChild(skillField)
+            typeText(coreSkillsList[skill], skillField, FAST)
+        }
+
+        var choiceSkillsData = charClass["choiceSkills"]
+        var choiceSkills = choiceSkillsData["list"]
+
+        console.log(choiceSkills)
+
+        for (let i = 0; i < choiceSkillsData["num"]; i++) {
+            var skill = choiceSkills[(Math.floor(Math.random() * choiceSkills.length))]
+
+            console.log(skill)
+
+            var skillField = document.createElement("li");
+            skillsList.appendChild(skillField)
+            typeText(skill, skillField, FAST)
+        }
+
     }
 
     function rollStats() {
@@ -106,25 +139,24 @@ var classData = [
             "armor": 35
         },
         "code": "TM-",
-        "points": 3,
+        "points": 4,
         "modifiers": {
             "strength": 5,
             "speed": 5,
             "intelligence": 0,
             "combat": 0
         },
-        "core": {
-            "count": 2,
+        "coreSkills": [
+            "ZERO-G",
+            "MECHANICAL REPAIR",
+        ],
+        "choiceSkills": {
+            "num": 1,
             "list": [
-                "GEOLOGY",
-                "COMPUTERS",
-                "MATHEMATICS",
-                "CHEMISTRY",
-                "BIOLOGY",
-                "HYDROPONICS"
+                "HEAVY MACHINERY",
+                "PILOTING"
             ]
         }
-
     },
     {
         "name": "ANDROID",
@@ -143,18 +175,15 @@ var classData = [
             "intelligence": 5,
             "combat": 0
         },
-        "core": {
-            "count": 2,
-            "list": [
-                "GEOLOGY",
-                "COMPUTERS",
-                "MATHEMATICS",
-                "CHEMISTRY",
-                "BIOLOGY",
-                "HYDROPONICS"
-            ]
+        "coreSkills": [
+            "COMPUTERS",
+            "LINGUISTICS",
+            "MATHEMATICS"
+        ],
+        "choiceSkills": {
+            "count": 0,
+            "list": []
         }
-
     },
     {
         "name": "SCIENTIST",
@@ -173,8 +202,9 @@ var classData = [
             "intelligence": 10,
             "combat": 0
         },
-        "core": {
-            "count": 2,
+        "coreSkills": [],
+        "choiceSkills": {
+            "num": 2,
             "list": [
                 "GEOLOGY",
                 "COMPUTERS",
@@ -184,7 +214,6 @@ var classData = [
                 "HYDROPONICS"
             ]
         }
-
     },
     {
         "name": "MARINE",
@@ -203,16 +232,12 @@ var classData = [
             "intelligence": 0,
             "combat": 5
         },
-        "core": {
-            "count": 2,
-            "list": [
-                "GEOLOGY",
-                "COMPUTERS",
-                "MATHEMATICS",
-                "CHEMISTRY",
-                "BIOLOGY",
-                "HYDROPONICS"
-            ]
+        "coreSkills": [
+            "MILITARY TRAINING"
+        ],
+        "choiceSkills": {
+            "count": 0,
+            "list": []
         }
     }
 ]
