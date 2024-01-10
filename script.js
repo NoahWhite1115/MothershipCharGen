@@ -69,6 +69,13 @@ document.getElementById("new-employee-button").addEventListener("click", functio
         psychProfile.appendChild(fearResponse);
 
         typeText(charClass["fear"], fearResponse, FAST)
+
+        if (charClass["name"] == "MARINE") {
+            var teamwork = document.createElement("li");
+            psychProfile.appendChild(teamwork);
+
+            typeText(teamworkText, teamwork, FAST)
+        }
     }
 
     function addContract() {
@@ -96,6 +103,13 @@ document.getElementById("new-employee-button").addEventListener("click", functio
         var trinketField = document.createElement("li");
         personal.appendChild(trinketField);
         typeText(trinket, trinketField, FAST)
+
+        const patchIndex = Math.floor(Math.random() * patches.length);
+        var patch = patches[patchIndex];
+
+        var patchField = document.createElement("li");
+        personal.appendChild(patchField);
+        typeText(patch + " PATCH", patchField, FAST)
     }
 
     function generateSkills(charClass) {
@@ -161,6 +175,8 @@ document.getElementById("new-employee-button").addEventListener("click", functio
 function rollDie(die) {
     return Math.floor(Math.random() * (die) + 1)
 }
+
+const teamworkText = "TEAMWORK TRAINING: MARINE HAS +5 TO COMBAT ROLLS WHEN OTHER MARINES ARE NEARBY"
 
 const contractInfoList = [
     " YEARS LEFT ON CONTRACT",
@@ -310,7 +326,7 @@ const trinkets = [
     "HUMAN FEMUR, SCRIMSHAWED",
     "CAN OF SPRAYPAINT (FULIGIN)",
     "PROTRACTOR, COMPASS, SLIDE RULE",
-    "GLASS BEAD BRACELET (14 PRIME COLONIES)",
+    "GLASS BEAD BRACELET ( PRIME COLONIES)",
     "PAMPHLET: ZUG FACTS",
     "MUMMIFIED MONKEY PAW, TWO FINGERS CURLED",
     "ENCRYPTED HARD DRIVE (PERSONAL)",
@@ -358,7 +374,6 @@ const trinkets = [
     "WIKIPEDIA LIFETIME SERVICE AWARD",
     "SMART-LEMUR COMPANION",
     "SQUISHY KAIJU STRESS TOY",
-    "ADMIRALTY BLUES GUNPLA MODEL KIT (HARDBOILED AMAZON)",
     "YOUNG CHILD'S ART PROJECT",
     "USPS MAIL BAG",
     "MYSTERIOUS ORB",
@@ -370,7 +385,7 @@ const trinkets = [
     "CAMO PONCHO (FOREST)",
     "PENDANT OCARINA",
     "UNLABELED VHS TAPE, CONTENTS UNKNOWN",
-    "SPACEPORT DINER REWARDS PUNCHCARD, 6/10",
+    "SPACEPORT DINER REWARDS PUNCHCARD, /",
     "BOOK: THE ILLUSTRATED UPANISHADS",
     "HILT OF BROKEN SWORD",
     "JAGGED CHUNK OF RED ROCK",
@@ -395,7 +410,7 @@ const trinkets = [
     "HORRIFICALLY LOUD FLORAL-PRINT SHIRT",
     "PORNOGRAPHIC MAGAZINE (CHIMERA MORPHS)",
     "BOOK: LANGUAGE CONSTRUCTION FOR UTTER BUFFOONS",
-    "BLOOD-STAINED VOUCHER (1 HUMAN SOUL)",
+    "BLOOD-STAINED VOUCHER ( HUMAN SOUL)",
     "ENGRAVED BULLET ('MERRY CHRISTMAS, ASSHOLE')",
     "CENTURION'S HELMET",
     "LEOPARD PELT (GENUINE)",
@@ -423,7 +438,7 @@ const trinkets = [
     "BEAD ANIMAL (LIZARD)",
     "SPRIG OF LILAC (HAIRPIN)",
     "SANY RUNGAL CASSETTE PLAYER",
-    "MANGA: MY LIFE WITH THE GHOSTS, VOL 4",
+    "MANGA: MY LIFE WITH THE GHOSTS, VOL ",
     "PAMPHLET: ABDUCTED!",
     "OBSIDIAN KNIFE W/ SHOULDER HARNESS",
     "BAG OF PROTEIN CRISPS (CHILI & CHOCOLATE)",
@@ -445,7 +460,7 @@ const trinkets = [
     "BOTTLE OF VODKA W/ SEA SLUG",
     "MACHETE WITH A CHIPPED BLADE",
     "HOG-HUNTING LICENSE",
-    "CASSETTE TAPE: HANA BURAKA'S LO-FI MIX VOL. 2",
+    "CASSETTE TAPE: HANA BURAKA'S LO-FI MIX VOL. ",
     "CLOAK OF HUMAN SKIN (WILLINGLY GIVEN)",
     "POCKET OF ASSORTED SAUCE PACKETS",
     "PAMPHLET: MORE THAN YOU COULD EVER EARN",
@@ -463,7 +478,7 @@ const trinkets = [
     "CLUB NOVA VIP CARD",
     "GREAT GOOGLY MOOGLY'S MENU",
     "BUSINESS CARD (GRETA VON GOORT, ATTORNEY AT LAW)",
-    "BOOK: 1001 NUTRIENT PASTE RECIPES",
+    "BOOK:  NUTRIENT PASTE RECIPES",
     "HANDHELD AI THERAPIST",
     "SPRAY HAIR COLOR (NEON BLUE)",
     "T-SHIRT: RED WITH SINGLE WHITE STAR",
@@ -475,7 +490,7 @@ const trinkets = [
     "NOTEPAD WITH COMPUTER PASSWORDS",
     "RUBBER MOSQUITO MASK",
     "LAST WILL OF DECEASED RELATIVE",
-    "STICKERS (CHIBI DEITIES, X100)",
+    "STICKERS (CHIBI DEITIES, X)",
     "TIME CAPSULE (STOLEN)",
     "WAITLIST FOR CYBERNETICS CLINIC",
     "LUCKY PENNY (BULLET-DENTED)",
@@ -492,8 +507,10 @@ const trinkets = [
     "DECORATIVE HORN IMPLANTS",
     "FRACTAL-PATTERN HEADSCARF",
     "PRESERVED INSECTILE ABERRATION",
-    "ALIEN PRESSED FLOWER (COMMON)  CORRODED ANDROID LOGIC CORE",
-    "MANUAL: TREAT YOUR RIFLE LIKE A LADY  CALENDAR: ALIEN PIN-UP ART",
+    "ALIEN PRESSED FLOWER (COMMON)",
+    "CORRODED ANDROID LOGIC CORE",
+    "MANUAL: TREAT YOUR RIFLE LIKE A LADY",
+    "CALENDAR: ALIEN PIN-UP ART",
     "HOLOGRAPHIC SERPENTINE DANCER",
     "MEDICAL CONTAINER, PURPLE POWDER  CASINO PLAYING CARDS",
     "MOONSTONE RING",
@@ -580,6 +597,113 @@ const trinkets = [
     "MINIATURE CHESS SET, BONE, PIECES MISSING",
 ]
 
-const patches = [,
-
+const patches = [
+    "'#1 WORKER'",
+    "BLOOD TYPE",
+    "BIOHAZARD SYMBOL",
+    "NUCLEAR SYMBOL",
+    "“BE SURE: DOUBLETAP“",
+    "SMILEY FACE (GLOW IN THE DARK)",
+    "JOLLY ROGER",
+    "QUEEN OF HEARTS",
+    "PIN-UP (RIDING MISSILE)",
+    "“I’M A (LOVE) MACHINE”",
+    "HELLO MY NAME IS:",
+    "“TAKE ME TO YOUR LEADER” (UFO)",
+    "“TAKE MY LIFE (PLEASE)”",
+    "“FIX ME FIRST” (CADUCEUS)",
+    "NASA LOGO",
+    "DOVE IN CROSSHAIRS",
+    "“WELCOME TO THE DANGER ZONE”",
+    "PIN-UP (SUCCUBUS)",
+    "“DRINK / FIGHT / FUCK”",
+    "MUDFLAP GIRL",
+    "“GAME OVER” (BRIDE & GROOM)",
+    "“IMPROVE / ADAPT / OVERCOME”",
+    "“KEEP WELL LUBRICATED”",
+    "“PLAYS WELL WITH OTHERS”",
+    "“I AM NOT A ROBOT”",
+    "“I CAN’T FIX STUPID”",
+    "ALL SEEING EYE",
+    "“NOMAD”",
+    "“LONER”",
+    "“MAMA TRIED”",
+    "“MY OTHER RIDE MARRIED YOU”",
+    "GRIM REAPER BACK",
+    "“SMOOTH OPERATOR”",
+    "“FOR SCIENCE!”",
+    "“HELP WANTED”",
+    "DICE (SNAKE EYES)  “GOOD” (BRAIN)",
+    "“TOO PRETTY TO DIE”",
+    "ICARUS",
+    "RISK OF ELECTROCUTION SYMBOL",
+    "DOUBLE CHERRY",
+    "“SOLVE ET COAGULA” (BAPHOMET)",
+    "SECURITY GUARD",
+    "“UPSTANDING CITIZEN”",
+    "“I’M NOT A ROCKET SCIENTIST / BUT YOU’RE AN IDIOT”",
+    "RED SHIRT LOGO",
+    "“DON’T RUN YOU’LL ONLY DIE TIRED”",
+    "POKER HAND: DEAD MAN’S HAND",
+    "“COWBOY UP” (CROSSED REVOLVERS)",
+    "“I AM MY BROTHER’S KEEPER”",
+    "CHIBI CTHULHU",
+    "BLACK WIDOW SPIDER",
+    "SKULL AND CROSSED WRENCHES",
+    "MR. YUCK",
+    "“ONE SIZE FITS ALL” (GRENADE)",
+    "“DILLIGAF?”",
+    "“EAT THE RICH”",
+    "ОТЪЕБИСЬ (GET FUCKED, RUSSIAN)",
+    "“WORK HARD / PARTY HARDER”",
+    "FLAME EMOJI",
+    "ATOM SYMBOL",
+    "FUN METER (READING: BAD TIME)",
+    "“SMILE: BIG BROTHER IS WATCHING”",
+    "“ACTUALLY, I AM A ROCKET SCIENTIST”",
+    "HEART",
+    "VIKING SKULL",
+    "“APEX PREDATOR”",
+    "(SABERTOOTH SKULL)",
+    "PIN-UP (ACE OF SPADES)",
+    "PRINCESS",
+    "“I LIKE MY TOOLS CLEAN / AND MY LOVERS DIRTY”",
+    "“GOOD BOY”",
+    "“SUCK IT UP”",
+    "“TROUBLESHOOTER”",
+    "“IF I’M RUNNING KEEP UP” BACK",
+    "CROSSED HAMMERS WITH WINGS",
+    "PIN-UP (MECHANIC)",
+    "“TRAVEL TO DISTANT EXOTIC PLACES / MEET UNUSUAL THINGS / GET EATEN”",
+    "FRONT TOWARDS ENEMY",
+    "(CLAYMORE MINE)",
+    "“BAD BITCH”",
+    "SOVIET HAMMER & SICKLE",
+    "FUBAR",
+    "“FUCK FOREVER” (ROSES)",
+    "“LIVE FREE AND DIE”",
+    "PIN-UP (NURSE): “THE LOUDER YOU SCREAM THE FASTER I COME”",
+    "“MEAT BAG”",
+    "MEDIC",
+    "(SKULL AND CROSSBONES ON LOGO)",
+    "”GIRL’S BEST FRIEND” (DIAMOND)",
+    "INVERTED CROSS",
+    "“DO YOU SIGN MY PAYCHECKS?”",
+    "“I ♥ MYSELF”",
+    "'POWERED BY COFFEE'",
+    "RED GEAR",
+    "“DO YOUR JOB”",
+    "“SPACE IS MY HOME” (SAD ASTRONAUT)",
+    "“ALL OUT OF FUCKS TO GIVE”",
+    "(ASTRONAUT WITH TURNED OUT POCKETS)",
+    "ALLERGIC TO BULLSHIT - MEDICAL STYLE "
 ]
+
+const skillData = {
+    "CHEMISTRY": {
+        "level": 1,
+        "prereqFor": [
+            "EXPLOSIVES"
+        ]
+    }
+}
