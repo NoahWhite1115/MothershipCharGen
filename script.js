@@ -117,13 +117,19 @@ document.getElementById("new-employee-button").addEventListener("click", functio
 
         skillsList.innerHTML = "";
 
-        // generate class skills
+        var chosenSkills = [];
+
+        // Generate class-given skills
         var coreSkillsList = charClass["coreSkills"]
 
         for (skill in coreSkillsList) {
+            chosenSkills.push(coreSkillsList[skill]);
             var skillField = document.createElement("li");
             skillsList.appendChild(skillField);
-            typeText(coreSkillsList[skill], skillField, FAST);
+
+            const skillText = levelToBonusMap[skillData[coreSkillsList[skill]]["level"]] + " " + coreSkillsList[skill]
+
+            typeText(skillText, skillField, FAST);
         }
 
         var choiceSkillsData = charClass["choiceSkills"];
@@ -132,16 +138,52 @@ document.getElementById("new-employee-button").addEventListener("click", functio
         for (let i = 0; i < choiceSkillsData["num"]; i++) {
             const index = Math.floor(Math.random() * choiceSkills.length);
             var skill = choiceSkills[index];
+            chosenSkills.push(skill);
 
             choiceSkills.splice(index, index);
 
             var skillField = document.createElement("li");
             skillsList.appendChild(skillField);
-            typeText(skill, skillField, FAST);
+
+            const skillText = levelToBonusMap[skillData[skill]["level"]] + " " + skill
+
+            typeText(skillText, skillField, FAST);
         }
 
-        // pick skills using points
+        // Pick skills using points
+        var points = charClass["points"]
 
+        while (points > 0) {
+            var eligiblePointSkills = [...trainedSkills];
+
+            if (points > 1) {
+                for (skillIndex in chosenSkills) {
+                    const skill = chosenSkills[skillIndex]
+                    // Sophontology is the only 3-point skill available at level 1, through linguisitcs path
+                    if (skill == "LINGUISTICS" && points < 3) {
+                        continue
+                    }
+
+                    eligiblePointSkills = eligiblePointSkills.concat(skillData[skill]["prereqFor"])
+                }
+            }
+
+            eligiblePointSkills = eligiblePointSkills.filter(value => !chosenSkills.includes(value));
+
+            const index = Math.floor(Math.random() * eligiblePointSkills.length);
+            var skill = eligiblePointSkills[index];
+
+            chosenSkills.push(skill);
+            const skillInfo = skillData[skill]
+            points -= skillInfo["level"]
+
+            var skillField = document.createElement("li");
+            skillsList.appendChild(skillField);
+
+            const skillText = levelToBonusMap[skillData[skill]["level"]] + " " + skill
+
+            typeText(skillText, skillField, FAST);
+        }
     }
 
     function rollStats() {
@@ -233,7 +275,7 @@ const classData = [
             "armor": 25
         },
         "code": "AN-",
-        "points": 3,
+        "points": 2,
         "modifiers": {
             "strength": 0,
             "speed": 5,
@@ -512,9 +554,11 @@ const trinkets = [
     "MANUAL: TREAT YOUR RIFLE LIKE A LADY",
     "CALENDAR: ALIEN PIN-UP ART",
     "HOLOGRAPHIC SERPENTINE DANCER",
-    "MEDICAL CONTAINER, PURPLE POWDER  CASINO PLAYING CARDS",
+    "MEDICAL CONTAINER, PURPLE POWDER",
+    "CASINO PLAYING CARDS",
     "MOONSTONE RING",
-    "BARTENDER’S CERTIFICATION (EXPIRED)  PROSPECTING MUG, DENTED",
+    "BARTENDER’S CERTIFICATION (EXPIRED)",
+    "PROSPECTING MUG, DENTED",
     "VANTABLACK MARBLE",
     "ASHES (A RELATIVE)",
     "CIGARETTES (GRINNING SKULL)",
@@ -525,13 +569,16 @@ const trinkets = [
     "TITANIUM TOOTHPICK",
     "BRASS KNUCKLES",
     "JOURNAL OF GRUDGES",
-    "BALL OF ASSORTED GAUGE WIRE  SWITCHBLADE, ORNAMENTAL",
+    "BALL OF ASSORTED GAUGE WIRE",
+    "SWITCHBLADE, ORNAMENTAL",
     "BONSAI TREE",
     "TRILOBITE FOSSIL",
-    "PATCHED OVERALLS, PERSONALIZED  SPIKED BRACELET",
+    "PATCHED OVERALLS, PERSONALIZED",
+    "SPIKED BRACELET",
     "SPRAY PAINT",
     "LOCKET, HAIR BRAID",
-    "BLANKET, FIRE RETARDANT  BB GUN",
+    "BLANKET, FIRE RETARDANT",
+    "BB GUN",
     "USHANKA",
     "MENTHOL BALM",
     "X TARP",
@@ -595,6 +642,8 @@ const trinkets = [
     "MANUAL: SPACEFARER’S ALMANAC (OUT OF DATE)",
     "PAMPHLET: THE RELIC OF FLESH",
     "MINIATURE CHESS SET, BONE, PIECES MISSING",
+    "ANIME BODY PILLOW",
+    "A 48 PACK OF LIMITED EDITION SODA"
 ]
 
 const patches = [
@@ -696,14 +745,248 @@ const patches = [
     "“SPACE IS MY HOME” (SAD ASTRONAUT)",
     "“ALL OUT OF FUCKS TO GIVE”",
     "(ASTRONAUT WITH TURNED OUT POCKETS)",
-    "ALLERGIC TO BULLSHIT - MEDICAL STYLE "
+    "ALLERGIC TO BULLSHIT - MEDICAL STYLE",
+    "ANY LANDING IS A GOOD LANDING",
+    "OWO WHAT'S THIS? (CATGIRL)",
+    "“BORN TO SHIT / FORCED TO WIPE“"
 ]
 
 const skillData = {
+    "LINGUISTICS": {
+        "level": 1,
+        "prereqFor": [
+            "SOPHONTOLOGY"
+        ]
+    },
+    "BIOLOGY": {
+        "level": 1,
+        "prereqFor": [
+            "PSYCHOLOGY",
+            "GENETICS"
+        ]
+    },
+    "FIRST AID": {
+        "level": 1,
+        "prereqFor": [
+            "PATHOLOGY",
+        ]
+    },
+    "HYDROPONICS": {
+        "level": 1,
+        "prereqFor": [
+            "BOTANY"
+        ]
+    },
+    "GEOLOGY": {
+        "level": 1,
+        "prereqFor": [
+            "PLANETOLOGY",
+            "ASTEROID MINING"
+        ]
+    },
+    "ZERO-G": {
+        "level": 1,
+        "prereqFor": [
+            "ASTEROID MINING"
+        ]
+    },
+    "SCAVENGING": {
+        "level": 1,
+        "prereqFor": [
+            "JURY RIGGING",
+            "ASTEROID MINING"
+        ]
+    },
+    "HEAVY MACHINERY": {
+        "level": 1,
+        "prereqFor": [
+            "ENGINEERING",
+            "ASTEROID MINING"
+        ]
+    },
+    "COMPUTERS": {
+        "level": 1,
+        "prereqFor": [
+            "ENGINEERING",
+            "HACKING"
+        ]
+    },
+    "MECHANICAL REPAIR": {
+        "level": 1,
+        "prereqFor": [
+            "ASTEROID MINING",
+            "VEHICLE SPECIALIZATION"
+        ]
+    },
+    "DRIVING": {
+        "level": 1,
+        "prereqFor": [
+            "VEHICLE SPECIALIZATION"
+        ]
+    },
+    "PILOTING": {
+        "level": 1,
+        "prereqFor": [
+            "VEHICLE SPECIALIZATION",
+            "ASTROGATION"
+        ]
+    },
+    "MATHEMATICS": {
+        "level": 1,
+        "prereqFor": [
+            "PHYSICS"
+        ]
+    },
+    "ART": {
+        "level": 1,
+        "prereqFor": [
+            "MYSTICISM"
+        ]
+    },
+    "ARCHAEOLOGY": {
+        "level": 1,
+        "prereqFor": [
+            "MYSTICISM"
+        ]
+    },
+    "THEOLOGY": {
+        "level": 1,
+        "prereqFor": [
+            "MYSTICISM"
+        ]
+    },
+    "MILITARY TRAINING": {
+        "level": 1,
+        "prereqFor": [
+            "TACTICS",
+            "GUNNERY",
+            "FIREARMS",
+            "CLOSE-QUARTERS COMBAT",
+            "EXPLOSIVES"
+        ]
+    },
+    "RIMWISE": {
+        "level": 1,
+        "prereqFor": [
+            "FIREARMS",
+            "CLOSE-QUARTERS COMBAT"
+        ]
+    },
+    "ATHLETICS": {
+        "level": 1,
+        "prereqFor": [
+            "CLOSE-QUARTERS COMBAT"
+        ]
+    },
     "CHEMISTRY": {
         "level": 1,
         "prereqFor": [
             "EXPLOSIVES"
         ]
+    },
+    "PSYCHOLOGY": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "GENETICS": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "PATHOLOGY": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "BOTANY": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "PLANETOLOGY": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "ASTEROID MINING": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "JURY RIGGING": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "ENGINEERING": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "HACKING": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "VEHICLE SPECIALIZATION": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "ASTROGATION": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "PHYSICS": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "MYSTICISM": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "TACTICS": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "GUNNERY": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "FIREARMS": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "CLOSE-QUARTERS COMBAT": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "EXPLOSIVES": {
+        "level": 2,
+        "prereqFor": []
+    },
+    "SOPHONTOLOGY": {
+        "level": 3,
+        "prereqFor": []
     }
+}
+
+const trainedSkills = [
+    "LINGUISTICS",
+    "BIOLOGY",
+    "FIRST AID",
+    "HYDROPONICS",
+    "GEOLOGY",
+    "ZERO-G",
+    "SCAVENGING",
+    "HEAVY MACHINERY",
+    "COMPUTERS",
+    "MECHANICAL REPAIR",
+    "DRIVING",
+    "PILOTING",
+    "MATHEMATICS",
+    "ART",
+    "ARCHAEOLOGY",
+    "THEOLOGY",
+    "MILITARY TRAINING",
+    "RIMWISE",
+    "ATHLETICS",
+    "CHEMISTRY"
+]
+
+const levelToBonusMap = {
+    1: "+10%",
+    2: "+15%",
+    3: "+20%"
 }
