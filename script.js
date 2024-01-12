@@ -67,6 +67,14 @@ document.getElementById("new-employee-button").addEventListener("click", functio
 
         psychProfile.innerHTML = "";
 
+        const psychExtras = Math.floor(Math.random() * extraPsychDetails.length);
+        var psychExtrasText = extraPsychDetails[psychExtras];
+
+        var extraPsychDetailsField = document.createElement("li");
+        psychProfile.appendChild(extraPsychDetailsField);
+
+        typeText(psychExtrasText, extraPsychDetailsField, FAST)
+
         var fearResponse = document.createElement("li");
         psychProfile.appendChild(fearResponse);
 
@@ -1807,4 +1815,22 @@ const lastNamesList = [
     "NUNES",
     "SHU",
     "MIAH",
+]
+
+const extraPsychDetails = [
+    "PARANOID",
+    "EXTROVERTED",
+    "KLEPTOPMANIAC",
+    "STOIC AND EMOTIONLESS",
+    "PRONE TO CRUELTY",
+    "SADISTIC AND CRUEL",
+    "STUBBORN",
+    "PRIFDEFUL",
+    "DISHONEST",
+    "CLUMSY AND FORGETFUL",
+    "GULLIBLE AND NAIVE",
+    "LAZY",
+    "VAIN AND SELF-OBSESSED",
+    "EXCESSIVELY SHY",
+    "LACK OF AMBITION"
 ]
