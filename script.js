@@ -1820,7 +1820,7 @@ const lastNamesList = [
 const extraPsychDetails = [
     "PARANOID",
     "EXTROVERTED",
-    "KLEPTOPMANIAC",
+    "KLEPTOMANIAC",
     "STOIC AND EMOTIONLESS",
     "PRONE TO CRUELTY",
     "SADISTIC AND CRUEL",
