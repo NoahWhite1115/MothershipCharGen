@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Berthold City';
-    src: local('Berthold City');
+    src: url("https://s3.us-west-2.amazonaws.com/mothership.whitestelephant.net/Berthold+City+Light+Regular.otf");
     font-weight: normal;
     font-style: normal;
 }
