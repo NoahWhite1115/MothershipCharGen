@@ -2,6 +2,14 @@ const FAST = 20;
 const MEDIUM = 50;
 const SLOW = 100;
 
+document.getElementById("credits-button").addEventListener("click", function () {
+    document.getElementById("myPopup").classList.add("show");
+});
+
+document.getElementById("close-button").addEventListener("click", function () {
+    document.getElementById("myPopup").classList.remove("show");
+});
+
 document.getElementById("new-employee-button").addEventListener("click", function () {
     const charClassNumber = rollDie(4)
     const charClass = classData[charClassNumber - 1]
