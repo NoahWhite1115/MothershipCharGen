@@ -2,6 +2,12 @@ const FAST = 20;
 const MEDIUM = 50;
 const SLOW = 100;
 
+var soundOn = true;
+
+document.getElementById("sound-button").addEventListener("click", function () {
+    soundOn = !soundOn;
+});
+
 document.getElementById("credits-button").addEventListener("click", function () {
     document.getElementById("myPopup").classList.add("show");
 });
@@ -11,6 +17,11 @@ document.getElementById("close-button").addEventListener("click", function () {
 });
 
 document.getElementById("new-employee-button").addEventListener("click", function () {
+    if (soundOn) {
+        var audio = document.getElementById("computer" + rollDie(4).toString());
+        audio.play();
+    }
+
     const charClassNumber = rollDie(4)
     const charClass = classData[charClassNumber - 1]
 
