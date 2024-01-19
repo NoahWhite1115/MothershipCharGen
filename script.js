@@ -16,6 +16,14 @@ document.getElementById("close-button").addEventListener("click", function () {
     document.getElementById("myPopup").classList.remove("show");
 });
 
+document.getElementById("loadout-button").addEventListener("click", function () {
+    document.getElementById("loadoutPopup").classList.add("show");
+});
+
+document.getElementById("close-loadout-button").addEventListener("click", function () {
+    document.getElementById("loadoutPopup").classList.remove("show");
+});
+
 document.getElementById("new-employee-button").addEventListener("click", function () {
     if (soundOn) {
         var audio = document.getElementById("computer" + rollDie(4).toString());
